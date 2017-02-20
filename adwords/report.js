@@ -4,9 +4,31 @@
  * Unfortunately, the adwords reporting is seperated from the rest of the sdk
  */
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _assign = require("babel-runtime/core-js/object/assign");
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _assign2 = _interopRequireDefault(_assign);
+
+var _defineProperty = require("babel-runtime/core-js/object/define-property");
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;(0, _defineProperty2.default)(target, descriptor.key, descriptor);
+        }
+    }return function (Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+}();
+
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
 
 var request = require('request');
 var util = require('util');
@@ -36,7 +58,6 @@ var AdwordsReport = function () {
      * @param retryRequest {boolean} used to determine if we need to retry the request
      *                               for internal use only
      */
-
 
     _createClass(AdwordsReport, [{
         key: 'getReport',
@@ -112,7 +133,7 @@ var AdwordsReport = function () {
                     developerToken: _this2.credentials.developerToken,
                     clientCustomerId: _this2.credentials.clientCustomerId
                 };
-                Object.assign(headers, additionalHeaders);
+                (0, _assign2.default)(headers, additionalHeaders);
                 return callback(null, headers);
             });
         }

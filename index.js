@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     AdwordsAuth: require('./adwords/auth'),
     AdwordsUser: require('./adwords/user'),

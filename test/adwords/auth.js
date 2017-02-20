@@ -3,6 +3,7 @@
 /**
  * Tests for authentication
  */
+
 var assert = require('assert');
 
 describe('AdwordsAuth', function () {
