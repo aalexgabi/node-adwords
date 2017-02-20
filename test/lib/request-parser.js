@@ -3,18 +3,18 @@
  * Test for the Adwords Request Parser
  */
 
-const assert = require('assert');
-const _ = require('lodash');
-describe('RequestParser', function() {
+var assert = require('assert');
+var _ = require('lodash');
+describe('RequestParser', function () {
 
-    const RequestParser = require('../../lib/request-parser');
+    var RequestParser = require('../../lib/request-parser');
 
-    describe('#convertToValidAdwordsRequest', function() {
+    describe('#convertToValidAdwordsRequest', function () {
 
-        it('should convert the xsi:type fields to attributes', function() {
-            let operation = {
+        it('should convert the xsi:type fields to attributes', function () {
+            var operation = {
                 criterion: {
-                    'xsi:type': 'Test123',
+                    'xsi:type': 'Test123'
                 },
                 'xsi:type': 'Test123',
                 attributes: {
@@ -27,6 +27,4 @@ describe('RequestParser', function() {
             assert.strictEqual('string', typeof operation['xsi:type']);
         });
     });
-
-
 });

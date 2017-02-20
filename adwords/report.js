@@ -4,19 +4,25 @@
  * Unfortunately, the adwords reporting is seperated from the rest of the sdk
  */
 
-const request = require('request');
-const util = require('util');
-const fs = require('fs');
-const AdwordsConstants = require('./constants');
-const AdwordsReportBuilder = require('./report-builder');
-const AdwordsAuth = require('./auth');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-class AdwordsReport {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var request = require('request');
+var util = require('util');
+var fs = require('fs');
+var AdwordsConstants = require('./constants');
+var AdwordsReportBuilder = require('./report-builder');
+var AdwordsAuth = require('./auth');
+
+var AdwordsReport = function () {
 
     /**
      * @inheritDoc
      */
-    constructor(credentials) {
+    function AdwordsReport(credentials) {
+        _classCallCheck(this, AdwordsReport);
+
         this.auth = new AdwordsAuth(credentials);
         this.credentials = credentials;
     }
@@ -30,93 +36,113 @@ class AdwordsReport {
      * @param retryRequest {boolean} used to determine if we need to retry the request
      *                               for internal use only
      */
-    getReport(apiVersion, report, callback, retryRequest) {
-        if (typeof retryRequest === 'undefined') {
-            retryRequest = true;
-        }
 
-        report = report || {};
-        apiVersion = apiVersion || AdwordsConstants.DEFAULT_ADWORDS_VERSION;
 
-        this.getHeaders(report.additionalHeaders, (error, headers) => {
-            if (error) {
-                return callback(error);
+    _createClass(AdwordsReport, [{
+        key: 'getReport',
+        value: function getReport(apiVersion, report, callback, retryRequest) {
+            var _this = this;
+
+            if (typeof retryRequest === 'undefined') {
+                retryRequest = true;
             }
-            var b = new AdwordsReportBuilder();
-            var xml = b.buildReport(report);
-            request({
-                uri: 'https://adwords.google.com/api/adwords/reportdownload/' + apiVersion,
-                method: 'POST',
-                headers: headers,
-                form: {
-                    '__rdxml': xml
+
+            report = report || {};
+            apiVersion = apiVersion || AdwordsConstants.DEFAULT_ADWORDS_VERSION;
+
+            this.getHeaders(report.additionalHeaders, function (error, headers) {
+                if (error) {
+                    return callback(error);
                 }
-            }, (error, response, body) => {
-                if (error || this.reportBodyContainsError(report, body)) {
-                    error = error || body;
-                    if (-1 !== error.toString().indexOf(AdwordsConstants.OAUTH_ERROR) && retryRequest) {
-                        this.credentials.access_token = null;
-                        return this.getReport(apiVersion, report, callback, false);
+                var b = new AdwordsReportBuilder();
+                var xml = b.buildReport(report);
+                request({
+                    uri: 'https://adwords.google.com/api/adwords/reportdownload/' + apiVersion,
+                    method: 'POST',
+                    headers: headers,
+                    form: {
+                        '__rdxml': xml
                     }
-                    return callback(error, null);
-                }
-                return callback(null, body);
+                }, function (error, response, body) {
+                    if (error || _this.reportBodyContainsError(report, body)) {
+                        error = error || body;
+                        if (-1 !== error.toString().indexOf(AdwordsConstants.OAUTH_ERROR) && retryRequest) {
+                            _this.credentials.access_token = null;
+                            return _this.getReport(apiVersion, report, callback, false);
+                        }
+                        return callback(error, null);
+                    }
+                    return callback(null, body);
+                });
             });
-        });
-    }
-
-    /**
-     * Determines if the body contains an error message
-     * @param report {object} the report object
-     * @param body {string} the body string
-     * @return {boolean}
-     */
-    reportBodyContainsError(report, body) {
-        if ('xml' !== (''+report.format).toLowerCase() && -1 !== body.indexOf('<?xml')) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Gets the headers for the request
-     * @param additionalHeaders {object} gets additional headers
-     */
-    getHeaders(additionalHeaders, callback) {
-        this.getAccessToken((error, accessToken) => {
-            if (error) {
-                return callback(error);
-            }
-            var headers = {
-                Authorization: 'Bearer ' + accessToken,
-                developerToken: this.credentials.developerToken,
-                clientCustomerId: this.credentials.clientCustomerId
-            };
-            Object.assign(headers, additionalHeaders);
-            return callback(null, headers);
-        });
-    }
-
-    /**
-     * Gets an access token
-     * @access protected
-     * @param callback {function}
-     */
-    getAccessToken(callback) {
-        if (this.credentials.access_token) {
-            return callback(null, this.credentials.access_token);
         }
 
-        this.auth.refreshAccessToken(this.credentials.refresh_token, (error, tokens) => {
-            if (error) {
-                return callback(error);
+        /**
+         * Determines if the body contains an error message
+         * @param report {object} the report object
+         * @param body {string} the body string
+         * @return {boolean}
+         */
+
+    }, {
+        key: 'reportBodyContainsError',
+        value: function reportBodyContainsError(report, body) {
+            if ('xml' !== ('' + report.format).toLowerCase() && -1 !== body.indexOf('<?xml')) {
+                return true;
             }
-            this.credentials.access_token = tokens.access_token;
-            callback(null, this.credentials.access_token);
-        });
-    }
+            return false;
+        }
 
+        /**
+         * Gets the headers for the request
+         * @param additionalHeaders {object} gets additional headers
+         */
 
-}
+    }, {
+        key: 'getHeaders',
+        value: function getHeaders(additionalHeaders, callback) {
+            var _this2 = this;
+
+            this.getAccessToken(function (error, accessToken) {
+                if (error) {
+                    return callback(error);
+                }
+                var headers = {
+                    Authorization: 'Bearer ' + accessToken,
+                    developerToken: _this2.credentials.developerToken,
+                    clientCustomerId: _this2.credentials.clientCustomerId
+                };
+                Object.assign(headers, additionalHeaders);
+                return callback(null, headers);
+            });
+        }
+
+        /**
+         * Gets an access token
+         * @access protected
+         * @param callback {function}
+         */
+
+    }, {
+        key: 'getAccessToken',
+        value: function getAccessToken(callback) {
+            var _this3 = this;
+
+            if (this.credentials.access_token) {
+                return callback(null, this.credentials.access_token);
+            }
+
+            this.auth.refreshAccessToken(this.credentials.refresh_token, function (error, tokens) {
+                if (error) {
+                    return callback(error);
+                }
+                _this3.credentials.access_token = tokens.access_token;
+                callback(null, _this3.credentials.access_token);
+            });
+        }
+    }]);
+
+    return AdwordsReport;
+}();
 
 module.exports = AdwordsReport;

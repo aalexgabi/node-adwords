@@ -2,27 +2,28 @@
 /**
  * Tests / Examples for Targeting Idea Service
  */
-const AdwordsUser = require('../../../index').AdwordsUser;
-const AdwordsConstants = require('../../../index').AdwordsConstants;
 
-describe('TargetingIdeaService', function() {
+var AdwordsUser = require('../../../index').AdwordsUser;
+var AdwordsConstants = require('../../../index').AdwordsConstants;
 
-    let config = require('./adwordsuser-config');
+describe('TargetingIdeaService', function () {
+
+    var config = require('./adwordsuser-config');
     if (!config) {
         return console.log('Adwords User not configured, skipping Campaign Service tests');
     }
 
-    let user = new AdwordsUser(config);
+    var user = new AdwordsUser(config);
 
-    it('should return a targeting idea list', function(done) {
-        let targetingIdeaService = user.getService('TargetingIdeaService', config.version);
-        let selector = {
+    it('should return a targeting idea list', function (done) {
+        var targetingIdeaService = user.getService('TargetingIdeaService', config.version);
+        var selector = {
             searchParameters: [{
                 'xsi:type': 'RelatedToQuerySearchParameter',
                 queries: ['test']
             }, {
                 'xsi:type': 'LanguageSearchParameter',
-                languages: [{'cm:id': 1000}]
+                languages: [{ 'cm:id': 1000 }]
             }],
             ideaType: 'KEYWORD',
             requestType: 'IDEAS',
@@ -30,10 +31,9 @@ describe('TargetingIdeaService', function() {
             paging: {
                 startIndex: 0,
                 numberResults: AdwordsConstants.RECOMMENDED_PAGE_SIZE
-            },
+            }
         };
 
-        targetingIdeaService.get({selector: selector}, done);
+        targetingIdeaService.get({ selector: selector }, done);
     });
-
 });

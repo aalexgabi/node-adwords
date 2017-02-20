@@ -2,26 +2,26 @@
 /**
  * Tests / Examples for Campaign Service
  */
-const AdwordsUser = require('../../../index').AdwordsUser;
-const AdwordsConstants = require('../../../index').AdwordsConstants;
 
-describe('CampaignService', function() {
+var AdwordsUser = require('../../../index').AdwordsUser;
+var AdwordsConstants = require('../../../index').AdwordsConstants;
 
-    let config = require('./adwordsuser-config');
+describe('CampaignService', function () {
+
+    var config = require('./adwordsuser-config');
     if (!config) {
         return console.log('Adwords User not configured, skipping Campaign Service tests');
     }
 
-    let user = new AdwordsUser(config);
+    var user = new AdwordsUser(config);
 
-    it('should return a result with a list of campaigns', function(done) {
-        let campaignService = user.getService('CampaignService', config.version);
-        let selector = {
+    it('should return a result with a list of campaigns', function (done) {
+        var campaignService = user.getService('CampaignService', config.version);
+        var selector = {
             fields: ['Id', 'Name'],
-            ordering: [{field: 'Name', sortOrder: 'ASCENDING'}],
-            paging: {startIndex: 0, numberResults: AdwordsConstants.RECOMMENDED_PAGE_SIZE}
-        }
-        campaignService.get({serviceSelector: selector}, done);
+            ordering: [{ field: 'Name', sortOrder: 'ASCENDING' }],
+            paging: { startIndex: 0, numberResults: AdwordsConstants.RECOMMENDED_PAGE_SIZE }
+        };
+        campaignService.get({ serviceSelector: selector }, done);
     });
-
 });

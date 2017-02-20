@@ -2,21 +2,21 @@
 /**
  * Tests / Examples for ReportDefinition Service
  */
-const AdwordsUser = require('../../../index').AdwordsUser;
-const AdwordsConstants = require('../../../index').AdwordsConstants;
 
-describe('ReportDefinitionService', function() {
+var AdwordsUser = require('../../../index').AdwordsUser;
+var AdwordsConstants = require('../../../index').AdwordsConstants;
 
-    let config = require('./adwordsuser-config');
+describe('ReportDefinitionService', function () {
+
+    var config = require('./adwordsuser-config');
     if (!config) {
         return console.log('Adwords User not configured, skipping ReportDefinition Service tests');
     }
 
-    let user = new AdwordsUser(config);
+    var user = new AdwordsUser(config);
 
-    it('should return a result with a list of definitions', function(done) {
-        let reportDefinitionService = user.getService('ReportDefinitionService', config.version);
-        reportDefinitionService.getReportFields({reportType: 'KEYWORDS_PERFORMANCE_REPORT'}, done);
+    it('should return a result with a list of definitions', function (done) {
+        var reportDefinitionService = user.getService('ReportDefinitionService', config.version);
+        reportDefinitionService.getReportFields({ reportType: 'KEYWORDS_PERFORMANCE_REPORT' }, done);
     });
-
 });
