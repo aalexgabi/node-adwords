@@ -2,3 +2,6 @@ node_modules*
 
 tests.temp.js
 npm-debug.log
+
+# Test configuration
+/test/configuration/setup-test-env
