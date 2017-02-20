@@ -4,7 +4,7 @@
   "description": "An unofficial - feature complete - Adwords sdk for NodeJS",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": ". test/configuration/tokens && mocha --recursive"
   },
   "repository": {
     "type": "git",
