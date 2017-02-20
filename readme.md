@@ -23,9 +23,9 @@ The main adwords user object follows the [auth](https://github.com/googleads/goo
 of the PHP library.
 
 ```js
-const AdwordsUser = require('node-adwords').AdwordsUser;
+var AdwordsUser = require('node-adwords').AdwordsUser;
 
-let user = new AdwordsUser({
+var user = new AdwordsUser({
     developerToken: 'INSERT_DEVELOPER_TOKEN_HERE', //your adwords developerToken
     userAgent: 'INSERT_COMPANY_NAME_HERE', //any company name
     clientCustomerId: 'INSERT_CLIENT_CUSTOMER_ID_HERE', //the Adwords Account id (e.g. 123-123-123)
@@ -43,20 +43,20 @@ from the PHP library is the node library does not have special objects for
 
 
 ```js
-const AdwordsUser = require('node-adwords').AdwordsUser;
-const AdwordsConstants = require('node-adwords').AdwordsConstants;
+var AdwordsUser = require('node-adwords').AdwordsUser;
+var AdwordsConstants = require('node-adwords').AdwordsConstants;
 
-let user = new AdwordsUser({...});
-let campaignService = user.getService('CampaignService', 'v201609')
+var user = new AdwordsUser({...});
+var campaignService = user.getService('CampaignService', 'v201609')
 
 //create selector
-let selector = {
+var selector = {
     fields: ['Id', 'Name'],
     ordering: [{field: 'Name', sortOrder: 'ASCENDING'}],
     paging: {startIndex: 0, numberResults: AdwordsConstants.RECOMMENDED_PAGE_SIZE}
 }
 
-campaignService.get({serviceSelector: selector}, (error, result) => {
+campaignService.get({serviceSelector: selector}, function (error, result) {
     console.log(error, result);
 })
 
@@ -69,9 +69,9 @@ the `user.getService` endpoint since the reporting api is not part of the
 regular api.
 
 ```js
-const AdwordsReport = require('node-adwords').AdwordsReport;
+var AdwordsReport = require('node-adwords').AdwordsReport;
 
-let report = new AdwordsReport({/** same config as AdwordsUser above */});
+var report = new AdwordsReport({/** same config as AdwordsUser above */});
 report.getReport('v201609', {
     reportName: 'Custom Adgroup Performance Report',
     reportType: 'CAMPAIGN_PERFORMANCE_REPORT',
@@ -82,7 +82,7 @@ report.getReport('v201609', {
     startDate: new Date("07/10/2016"),
     endDate: new Date(),
     format: 'CSV' //defaults to CSV
-}, (error, report) => {
+}, function (error, report) {
     console.log(error, report);
 });
 ```
@@ -96,7 +96,7 @@ report.getReport('v201609', {
         skipReportHeader: true,
         skipReportSummary: true
     }
-}, (error, report) => {
+}, function (error, report) {
     console.log(error, report);
 });
 ```
@@ -110,20 +110,20 @@ The node-adwords sdk has some helper methods for you to authenticate if you do n
 need additional scopes.
 
 ```js
-const AdwordsUser = require('node-adwords').AdwordsAuth;
+var AdwordsUser = require('node-adwords').AdwordsAuth;
 
-let auth = new AdwordsAuth({
+var auth = new AdwordsAuth({
     client_id: 'INSERT_OAUTH2_CLIENT_ID_HERE', //this is the api console client_id
     client_secret: 'INSERT_OAUTH2_CLIENT_SECRET_HERE'
 }, 'https://myredirecturlhere.com/adwords/auth' /** insert your redirect url here */);
 
 //assuming express
-app.get('/adwords/go', (req, res) => {
+app.get('/adwords/go', function (req, res) {
     res.redirect(auth.generateAuthenticationUrl());
 })
 
-app.get('/adwords/auth', (req, res) => {
-    auth.getAccessTokenFromAuthorizationCode(req.query.code, (error, tokens) => {
+app.get('/adwords/auth', function (req, res) {
+    auth.getAccessTokenFromAuthorizationCode(req.query.code, function (error, tokens) {
         //save access and especially the refresh tokens here
     })
 });
@@ -135,7 +135,7 @@ Sometimes, in the Adwords documentation, you will see "Specify xsi:type instead"
 As of version 201609.1.0, you can specify this in the request as another attribute.
 
 ```js
-let operation = {
+var operation = {
     operator: 'ADD',
     operand: {
         campaignId: '1234567',

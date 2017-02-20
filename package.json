@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisAlvares/node-adwords.git"
+    "url": "git+https://github.com/aalexgabi/node-adwords-es5.git"
   },
   "keywords": [
     "adwords",
@@ -18,9 +18,9 @@
   "author": "Chris Alvares <mail@chrisalvares.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ChrisAlvares/node-adwords/issues"
+    "url": "https://github.com/aalexgabi/node-adwords-es5"
   },
-  "homepage": "https://github.com/ChrisAlvares/node-adwords#readme",
+  "homepage": "https://github.com/aalexgabi/node-adwords-es5",
   "dependencies": {
     "async": "^2.0.0",
     "babel-runtime": "^6.23.0",
