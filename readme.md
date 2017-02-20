@@ -1,4 +1,6 @@
-# Node Adwords Api
+# Node Adwords Api (ECMAScript 5 port)
+
+**Note that this is the ECMAScript 5 port and not the original module. If you are looking for the original ECMAScript 6 module use instead node-adwords module**
 
 This is an unofficial Adwords sdk for NodeJS > 3.0. This Api mirrors the official
 PHP api pretty well so you can always look at that documentation if
@@ -152,13 +154,9 @@ For testing, you will need a refresh token as well as a developer token.
 These should be placed as environmental variables:
 
 ```
-$ ADWORDS_API_TEST_DEVTOKEN=123453152342352352
-$ ADWORDS_API_TEST_REFRESHTOKEN=INSERT_OAUTH2_REFRESH_TOKEN_HERE
-$ ADWORDS_API_TEST_CLIENT_ID=INSERT_OAUTH2_CLIENT_ID_HERE
-$ ADWORDS_API_TEST_CLIENT_SECRET=INSERT_OAUTH2_CLIENT_SECRET_HERE
-$ ADWORDS_API_TEST_CLIENT_CUSTOMER_ID=INSERT_CLIENT_CUSTOMER_ID_HERE
-
-$ npm test
+$ cp test/configuration/tokens.dist test/configuration/tokens # Copy tokens template file
+$ editor test/configuration/tokens # Configure tokens
+$ npm test # Run tests
 ```
 
 ## Credits
