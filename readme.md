@@ -23,7 +23,7 @@ The main adwords user object follows the [auth](https://github.com/googleads/goo
 of the PHP library.
 
 ```js
-var AdwordsUser = require('node-adwords').AdwordsUser;
+var AdwordsUser = require('node-adwords-es5').AdwordsUser;
 
 var user = new AdwordsUser({
     developerToken: 'INSERT_DEVELOPER_TOKEN_HERE', //your adwords developerToken
@@ -43,8 +43,8 @@ from the PHP library is the node library does not have special objects for
 
 
 ```js
-var AdwordsUser = require('node-adwords').AdwordsUser;
-var AdwordsConstants = require('node-adwords').AdwordsConstants;
+var AdwordsUser = require('node-adwords-es5').AdwordsUser;
+var AdwordsConstants = require('node-adwords-es5').AdwordsConstants;
 
 var user = new AdwordsUser({...});
 var campaignService = user.getService('CampaignService', 'v201609')
@@ -69,7 +69,7 @@ the `user.getService` endpoint since the reporting api is not part of the
 regular api.
 
 ```js
-var AdwordsReport = require('node-adwords').AdwordsReport;
+var AdwordsReport = require('node-adwords-es5').AdwordsReport;
 
 var report = new AdwordsReport({/** same config as AdwordsUser above */});
 report.getReport('v201609', {
@@ -104,13 +104,13 @@ report.getReport('v201609', {
 
 
 ## Authentication
-Internally, the node-adwords sdk use the [official google api client](https://github.com/google/google-api-nodejs-client)
+Internally, the node-adwords-es5 sdk use the [official google api client](https://github.com/google/google-api-nodejs-client)
 for authenticating users. Using the `https://www.googleapis.com/auth/adwords` scope.
-The node-adwords sdk has some helper methods for you to authenticate if you do not
+The node-adwords-es5 sdk has some helper methods for you to authenticate if you do not
 need additional scopes.
 
 ```js
-var AdwordsUser = require('node-adwords').AdwordsAuth;
+var AdwordsUser = require('node-adwords-es5').AdwordsAuth;
 
 var auth = new AdwordsAuth({
     client_id: 'INSERT_OAUTH2_CLIENT_ID_HERE', //this is the api console client_id
